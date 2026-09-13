@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f8eee9" />
+  <title>For You ♡</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@500;600;700&family=Parisienne&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="sky" aria-hidden="true">
+    <span class="star s1"></span><span class="star s2"></span><span class="star s3"></span>
+    <span class="star s4"></span><span class="star s5"></span><span class="star s6"></span>
+    <span class="star s7"></span><span class="star s8"></span><span class="star s9"></span>
+    <span class="heart h1">♡</span><span class="heart h2">♡</span><span class="heart h3">♡</span>
+  </div>
+
+  <main class="page">
+    <section id="countdownView" class="hero">
+      <div class="eyebrow">a little something for you</div>
+      <h1 id="headline">3 days until your day <span>♡</span></h1>
+      <p id="subline">something special is getting closer...</p>
+
+      <div class="countdown-card">
+        <div class="count-unit"><strong id="days">03</strong><span>days</span></div>
+        <div class="colon">:</div>
+        <div class="count-unit"><strong id="hours">00</strong><span>hours</span></div>
+        <div class="colon">:</div>
+        <div class="count-unit"><strong id="minutes">00</strong><span>minutes</span></div>
+        <div class="colon">:</div>
+        <div class="count-unit"><strong id="seconds">00</strong><span>seconds</span></div>
+      </div>
+
+      <div class="date-pill">17 · 09 · 2026</div>
+      <p class="tiny-note">until the day that belongs to you ✨</p>
+    </section>
+
+    <section id="birthdayView" class="birthday hidden">
+      <div class="birthday-glow"></div>
+      <div class="eyebrow">today is your day ♡</div>
+      <h2>Happy Birthday,<br><span>my love</span> ❤️</h2>
+      <div class="cake" aria-hidden="true">
+        <div class="flame f1"></div><div class="flame f2"></div><div class="flame f3"></div>
+        <div class="candle c1"></div><div class="candle c2"></div><div class="candle c3"></div>
+        <div class="cake-top"></div>
+        <div class="cake-body"><span>♡</span><span>♡</span><span>♡</span></div>
+        <div class="plate"></div>
+      </div>
+      <div class="message-card">
+        <p>
+          I hope this new year of your life brings you everything you've been wishing for,
+          countless reasons to smile, and so many beautiful moments to remember.
+        </p>
+        <p>You deserve all the happiness in the world.</p>
+        <p>I'm so lucky to have you in my life.</p>
+        <p>Today is your day, birthday boy.<br>Enjoy every little moment. ❤️</p>
+        <div class="divider">✦</div>
+        <p class="closing">Here's to another beautiful year of you. ✨</p>
+      </div>
+    </section>
+
+    <section id="beforeView" class="before hidden">
+      <div class="eyebrow">just a little patience ♡</div>
+      <h2>Your birthday countdown<br>is getting closer.</h2>
+      <p>The clock is already running... ♡</p>
+    </section>
+  </main>
+
+  <div id="confetti" class="confetti" aria-hidden="true"></div>
+  <script src="script.js"></script>
+</body>
+</html>
