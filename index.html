@@ -42,12 +42,39 @@
       <div class="birthday-glow"></div>
       <div class="eyebrow">today is your day ♡</div>
       <h2>Happy Birthday,<br><span>my love</span> ❤️</h2>
-      <div class="cake" aria-hidden="true">
+      <div class="cake" id="birthdayCake" aria-label="Birthday cake with three candles">
         <div class="flame f1"></div><div class="flame f2"></div><div class="flame f3"></div>
         <div class="candle c1"></div><div class="candle c2"></div><div class="candle c3"></div>
+        <div class="smoke sm1"></div><div class="smoke sm2"></div><div class="smoke sm3"></div>
         <div class="cake-top"></div>
         <div class="cake-body"><span>♡</span><span>♡</span><span>♡</span></div>
         <div class="plate"></div>
+      </div>
+
+      <div id="candleInteraction" class="candle-interaction">
+        <p id="wishPrompt" class="wish-prompt">make a wish first... ✨</p>
+        <button id="blowButton" class="blow-button" type="button">💨 blow out the candles ♡</button>
+        <p id="micStatus" class="mic-status">tap the button, then blow gently</p>
+      </div>
+
+      <div id="afterCandle" class="after-candle hidden">
+        <div class="party-poppers" aria-hidden="true">
+          <span class="popper popper-left">🎉</span>
+          <span class="popper popper-right">🎉</span>
+        </div>
+        <p class="party-line">you did it ♡</p>
+        <p class="wish-made">wish made, birthday boy ✨</p>
+        <p class="open-teaser">there's one little thing waiting for you...</p>
+        <button id="openWhenButton" class="open-when-button" type="button">♡ open this when I say ♡</button>
+      </div>
+
+      <div id="bouquetReveal" class="bouquet-reveal hidden">
+        <div class="bouquet-eyebrow">for you, my love ♡</div>
+        <h3>just for you.</h3>
+        <div class="bouquet" role="img" aria-label="Cartoon-style bouquet with exactly nine red roses and one white rose in the middle, wrapped in black and cream paper and tied with a red ribbon">
+          <img src="bouquet_cartoon.png" alt="Cartoon-style bouquet with nine red roses and one white rose in the center, black and cream wrapping, and a red ribbon">
+        </div>
+        <p class="bouquet-note">nine red roses, one white rose —<br>one little bouquet, just for you. ❤️</p>
       </div>
       <div class="message-card">
         <p>
