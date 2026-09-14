@@ -88,3 +88,114 @@ function update() {
 
 update();
 setInterval(update, 1000);
+
+
+// --- Birthday candle interaction ---
+const birthdayCake = document.getElementById("birthdayCake");
+const blowButton = document.getElementById("blowButton");
+const micStatus = document.getElementById("micStatus");
+const wishPrompt = document.getElementById("wishPrompt");
+const afterCandle = document.getElementById("afterCandle");
+const openWhenButton = document.getElementById("openWhenButton");
+const bouquetReveal = document.getElementById("bouquetReveal");
+
+let candlesOut = false;
+let listening = false;
+let audioContext = null;
+let micStream = null;
+let analyser = null;
+let micAnimation = null;
+
+function candlesBlownOut() {
+  if (candlesOut) return;
+  candlesOut = true;
+  listening = false;
+  if (micAnimation) cancelAnimationFrame(micAnimation);
+  if (micStream) micStream.getTracks().forEach(track => track.stop());
+  if (audioContext && audioContext.state !== "closed") audioContext.close().catch(() => {});
+
+  birthdayCake.classList.add("candles-out");
+  wishPrompt.textContent = "wish made... ♡";
+  blowButton.classList.add("hidden");
+  micStatus.textContent = "the candles are out ✨";
+  afterCandle.classList.remove("hidden");
+  makeConfetti();
+}
+
+async function listenForBlow() {
+  if (candlesOut || listening) return;
+
+  // getUserMedia works on HTTPS (including GitHub Pages) and localhost.
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    micStatus.textContent = "microphone isn't available — tap the button again to blow them out ♡";
+    return;
+  }
+
+  try {
+    listening = true;
+    micStatus.textContent = "blow gently into your microphone... 💨";
+    micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    if (audioContext.state === "suspended") await audioContext.resume();
+
+    const source = audioContext.createMediaStreamSource(micStream);
+    analyser = audioContext.createAnalyser();
+    analyser.fftSize = 1024;
+    analyser.smoothingTimeConstant = 0.55;
+    source.connect(analyser);
+
+    const data = new Uint8Array(analyser.fftSize);
+    const started = performance.now();
+    let loudFrames = 0;
+
+    function check() {
+      if (!listening || candlesOut) return;
+      analyser.getByteTimeDomainData(data);
+      let sum = 0;
+      for (let i = 0; i < data.length; i++) {
+        const v = (data[i] - 128) / 128;
+        sum += v * v;
+      }
+      const rms = Math.sqrt(sum / data.length);
+      if (rms > 0.115) loudFrames += 1;
+      else loudFrames = Math.max(0, loudFrames - 1);
+
+      // A short sustained burst is enough to count as a blow.
+      if (loudFrames >= 5) {
+        candlesBlownOut();
+        return;
+      }
+
+      if (performance.now() - started > 9000) {
+        listening = false;
+        if (micStream) micStream.getTracks().forEach(track => track.stop());
+        micStatus.textContent = "didn't catch it? tap the button once more and the candles will go out ♡";
+        return;
+      }
+      micAnimation = requestAnimationFrame(check);
+    }
+    check();
+  } catch (error) {
+    listening = false;
+    if (micStream) micStream.getTracks().forEach(track => track.stop());
+    micStatus.textContent = "microphone permission was unavailable — tap the button again to blow them out ♡";
+  }
+}
+
+blowButton?.addEventListener("click", async () => {
+  if (candlesOut) return;
+  // First tap asks for microphone permission. If it cannot be used,
+  // a second tap acts as the friendly fallback.
+  if (!listening && micStatus.textContent.includes("tap the button once more")) {
+    candlesBlownOut();
+  } else {
+    await listenForBlow();
+  }
+});
+
+openWhenButton?.addEventListener("click", () => {
+  bouquetReveal.classList.remove("hidden");
+  openWhenButton.classList.add("hidden");
+  document.querySelector(".open-teaser")?.classList.add("hidden");
+  bouquetReveal.scrollIntoView({ behavior: "smooth", block: "center" });
+});
