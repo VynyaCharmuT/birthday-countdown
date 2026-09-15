@@ -39,7 +39,7 @@ function showCountdown(diff) {
     subline.textContent = "2 days more... getting closer, birthday boy.";
   } else if (days === 1) {
     headline.innerHTML = '1 day more until your day <span>♡</span>';
-    subline.textContent = "1 day more... tomorrow is all yours.";
+    subline.textContent = "1 day more... for it to be all yours.";
   } else {
     headline.innerHTML = 'It\'s almost your day <span>♡</span>';
     subline.textContent = "counting every little second until you.";
